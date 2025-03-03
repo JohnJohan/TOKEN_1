@@ -1,0 +1,265 @@
+Below is the **UML diagram** for the **Visitor Design Pattern** implementation for the bank scenario. The diagram includes classes, interfaces, relationships, and methods.
+
+---
+
+### UML Diagram
+
+```plaintext
++-------------------+          +-------------------+
+|      Bank         |          |   BankVisitor     |
++-------------------+          +-------------------+
+| + accept(Visitor) |<-------->| + visit(Cimb)     |
++-------------------+          | + visit(SeaBank)  |
+       ^                      | + visit(GoTyme)   |
+       |                      +-------------------+
+       |                              ^
+       |                              |
+       |                              |
++-------------------+          +-------------------+
+|      Cimb         |          | InterestAndInsur- |
++-------------------+          | anceVisitor       |
+| + getBalance()    |          +-------------------+
++-------------------+          | + visit(Cimb)     |
+                               | + visit(SeaBank)  |
++-------------------+          | + visit(GoTyme)   |
+|     SeaBank       |          +-------------------+
++-------------------+
+| + getBalance()    |
++-------------------+
+
++-------------------+
+|     GoTyme        |
++-------------------+
+| + getBalance()    |
++-------------------+
+```
+
+---
+
+### Explanation of the UML Diagram:
+
+1. **`Bank` Interface**:
+   - Defines the `accept(BankVisitor)` method, which allows a visitor to perform operations on the bank.
+
+2. **Concrete Banks (`Cimb`, `SeaBank`, `GoTyme`)**:
+   - Implement the `Bank` interface.
+   - Each bank has a `getBalance()` method to retrieve the account balance.
+   - The `accept(BankVisitor)` method calls the appropriate `visit()` method on the visitor.
+
+3. **`BankVisitor` Interface**:
+   - Defines the `visit()` methods for each type of bank.
+
+4. **Concrete Visitor (`InterestAndInsuranceVisitor`)**:
+   - Implements the `BankVisitor` interface.
+   - Contains the logic to calculate interest and insurance for each bank.
+
+5. **Relationships**:
+   - The `Bank` interface is implemented by `Cimb`, `SeaBank`, and `GoTyme`.
+   - The `BankVisitor` interface is implemented by `InterestAndInsuranceVisitor`.
+   - The `accept()` method in `Bank` calls the appropriate `visit()` method in `BankVisitor`.
+
+---
+
+### PlantUML Code (for Automated UML Generation)
+
+If you use **PlantUML**, you can generate the UML diagram with the following code:
+
+```plantuml
+@startuml
+interface Bank {
+    + accept(BankVisitor)
+}
+
+class Cimb {
+    + getBalance(): double
+    + accept(BankVisitor)
+}
+
+class SeaBank {
+    + getBalance(): double
+    + accept(BankVisitor)
+}
+
+class GoTyme {
+    + getBalance(): double
+    + accept(BankVisitor)
+}
+
+interface BankVisitor {
+    + visit(Cimb)
+    + visit(SeaBank)
+    + visit(GoTyme)
+}
+
+class InterestAndInsuranceVisitor {
+    + visit(Cimb)
+    + visit(SeaBank)
+    + visit(GoTyme)
+}
+
+Bank <|.. Cimb
+Bank <|.. SeaBank
+Bank <|.. GoTyme
+
+BankVisitor <|.. InterestAndInsuranceVisitor
+
+Cimb --> BankVisitor : accept()
+SeaBank --> BankVisitor : accept()
+GoTyme --> BankVisitor : accept()
+@enduml
+```
+
+---
+
+### Steps to Use PlantUML:
+1. Copy the above PlantUML code.
+2. Go to an online PlantUML editor (e.g., [PlantText](https://planttext.com/)).
+3. Paste the code and generate the UML diagram.
+
+---
+
+### Tools to Create UML Diagrams:
+If you want to create this UML diagram visually, you can use tools like:
+- **Lucidchart**
+- **Draw.io**
+- **StarUML**
+- **Visual Paradigm**
+
+---
+
+### Key Takeaways:
+- The **Visitor Design Pattern** allows you to add new operations (e.g., calculating interest and insurance) without modifying the bank classes.
+- The UML diagram clearly shows the relationships between the `Bank`, `BankVisitor`, and their concrete implementations.
+- The **Open/Closed Principle** is maintained, as new banks or operations can be added without changing existing code.Below is the **UML diagram** for the **Visitor Design Pattern** implementation for the bank scenario. The diagram includes classes, interfaces, relationships, and methods.
+
+---
+
+### UML Diagram
+
+```plaintext
++-------------------+          +-------------------+
+|      Bank         |          |   BankVisitor     |
++-------------------+          +-------------------+
+| + accept(Visitor) |<-------->| + visit(Cimb)     |
++-------------------+          | + visit(SeaBank)  |
+       ^                      | + visit(GoTyme)   |
+       |                      +-------------------+
+       |                              ^
+       |                              |
+       |                              |
++-------------------+          +-------------------+
+|      Cimb         |          | InterestAndInsur- |
++-------------------+          | anceVisitor       |
+| + getBalance()    |          +-------------------+
++-------------------+          | + visit(Cimb)     |
+                               | + visit(SeaBank)  |
++-------------------+          | + visit(GoTyme)   |
+|     SeaBank       |          +-------------------+
++-------------------+
+| + getBalance()    |
++-------------------+
+
++-------------------+
+|     GoTyme        |
++-------------------+
+| + getBalance()    |
++-------------------+
+```
+
+---
+
+### Explanation of the UML Diagram:
+
+1. **`Bank` Interface**:
+   - Defines the `accept(BankVisitor)` method, which allows a visitor to perform operations on the bank.
+
+2. **Concrete Banks (`Cimb`, `SeaBank`, `GoTyme`)**:
+   - Implement the `Bank` interface.
+   - Each bank has a `getBalance()` method to retrieve the account balance.
+   - The `accept(BankVisitor)` method calls the appropriate `visit()` method on the visitor.
+
+3. **`BankVisitor` Interface**:
+   - Defines the `visit()` methods for each type of bank.
+
+4. **Concrete Visitor (`InterestAndInsuranceVisitor`)**:
+   - Implements the `BankVisitor` interface.
+   - Contains the logic to calculate interest and insurance for each bank.
+
+5. **Relationships**:
+   - The `Bank` interface is implemented by `Cimb`, `SeaBank`, and `GoTyme`.
+   - The `BankVisitor` interface is implemented by `InterestAndInsuranceVisitor`.
+   - The `accept()` method in `Bank` calls the appropriate `visit()` method in `BankVisitor`.
+
+---
+
+### PlantUML Code (for Automated UML Generation)
+
+If you use **PlantUML**, you can generate the UML diagram with the following code:
+
+```plantuml
+@startuml
+interface Bank {
+    + accept(BankVisitor)
+}
+
+class Cimb {
+    + getBalance(): double
+    + accept(BankVisitor)
+}
+
+class SeaBank {
+    + getBalance(): double
+    + accept(BankVisitor)
+}
+
+class GoTyme {
+    + getBalance(): double
+    + accept(BankVisitor)
+}
+
+interface BankVisitor {
+    + visit(Cimb)
+    + visit(SeaBank)
+    + visit(GoTyme)
+}
+
+class InterestAndInsuranceVisitor {
+    + visit(Cimb)
+    + visit(SeaBank)
+    + visit(GoTyme)
+}
+
+Bank <|.. Cimb
+Bank <|.. SeaBank
+Bank <|.. GoTyme
+
+BankVisitor <|.. InterestAndInsuranceVisitor
+
+Cimb --> BankVisitor : accept()
+SeaBank --> BankVisitor : accept()
+GoTyme --> BankVisitor : accept()
+@enduml
+```
+
+---
+
+### Steps to Use PlantUML:
+1. Copy the above PlantUML code.
+2. Go to an online PlantUML editor (e.g., [PlantText](https://planttext.com/)).
+3. Paste the code and generate the UML diagram.
+
+---
+
+### Tools to Create UML Diagrams:
+If you want to create this UML diagram visually, you can use tools like:
+- **Lucidchart**
+- **Draw.io**
+- **StarUML**
+- **Visual Paradigm**
+
+---
+
+### Key Takeaways:
+- The **Visitor Design Pattern** allows you to add new operations (e.g., calculating interest and insurance) without modifying the bank classes.
+- The UML diagram clearly shows the relationships between the `Bank`, `BankVisitor`, and their concrete implementations.
+- The **Open/Closed Principle** is maintained, as new banks or operations can be added without changing existing code.
