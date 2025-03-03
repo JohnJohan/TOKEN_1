@@ -1,0 +1,199 @@
+To implement the **Visitor Design Pattern** for this scenario, we need to create a system where:
+
+1. **Banks** (Cimb, SeaBank, GoTyme) are the elements that accept a visitor.
+2. **Visitor** calculates the interest and insurance benefits based on the bank's rules.
+3. The system adheres to the **Open/Closed Principle**, meaning new banks or features can be added without modifying existing code.
+
+---
+
+### Step 1: Define the `Bank` Interface
+This interface represents the element that accepts a visitor.
+
+```java
+public interface Bank {
+    void accept(BankVisitor visitor);
+}
+```
+
+---
+
+### Step 2: Implement Concrete Banks
+Each bank implements the `Bank` interface and provides its own interest rate and insurance rules.
+
+```java
+// Concrete Bank: Cimb
+public class Cimb implements Bank {
+    private double balance;
+
+    public Cimb(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    @Override
+    public void accept(BankVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+// Concrete Bank: SeaBank
+public class SeaBank implements Bank {
+    private double balance;
+
+    public SeaBank(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    @Override
+    public void accept(BankVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+// Concrete Bank: GoTyme
+public class GoTyme implements Bank {
+    private double balance;
+
+    public GoTyme(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    @Override
+    public void accept(BankVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+```
+
+---
+
+### Step 3: Define the `BankVisitor` Interface
+This interface defines the operations that can be performed on the banks.
+
+```java
+public interface BankVisitor {
+    void visit(Cimb cimb);
+    void visit(SeaBank seaBank);
+    void visit(GoTyme goTyme);
+}
+```
+
+---
+
+### Step 4: Implement the Concrete Visitor
+The visitor calculates the interest and insurance benefits for each bank.
+
+```java
+public class InterestAndInsuranceVisitor implements BankVisitor {
+    @Override
+    public void visit(Cimb cimb) {
+        double balance = cimb.getBalance();
+        double interestRate = 0.026; // 2.6%
+        double interest = balance * interestRate;
+
+        double insurance = 0;
+        if (balance >= 50000) {
+            insurance = Math.min(balance, 250000); // Proportional, max ₱250,000
+        }
+
+        System.out.println("Cimb Bank:");
+        System.out.println("  Interest: ₱" + interest);
+        System.out.println("  Insurance: ₱" + insurance);
+    }
+
+    @Override
+    public void visit(SeaBank seaBank) {
+        double balance = seaBank.getBalance();
+        double interestRate = 0.05; // 5%
+        double interest = balance * interestRate;
+
+        double insurance = 0;
+        if (balance >= 50000) {
+            insurance = Math.min(balance, 1000000); // Proportional, max ₱1,000,000
+        }
+
+        System.out.println("SeaBank:");
+        System.out.println("  Interest: ₱" + interest);
+        System.out.println("  Insurance: ₱" + insurance);
+    }
+
+    @Override
+    public void visit(GoTyme goTyme) {
+        double balance = goTyme.getBalance();
+        double interestRate = 0.045; // 4.5%
+        double interest = balance * interestRate;
+
+        System.out.println("GoTyme:");
+        System.out.println("  Interest: ₱" + interest);
+        System.out.println("  Insurance: ₱0 (No insurance offered)");
+    }
+}
+```
+
+---
+
+### Step 5: Test the Implementation
+Create a main class to test the visitor pattern.
+
+```java
+public class BankDemo {
+    public static void main(String[] args) {
+        // Create banks with different balances
+        Bank cimb = new Cimb(100000);
+        Bank seaBank = new SeaBank(75000);
+        Bank goTyme = new GoTyme(30000);
+
+        // Create the visitor
+        BankVisitor visitor = new InterestAndInsuranceVisitor();
+
+        // Apply the visitor to each bank
+        cimb.accept(visitor);
+        seaBank.accept(visitor);
+        goTyme.accept(visitor);
+    }
+}
+```
+
+---
+
+### Output:
+```
+Cimb Bank:
+  Interest: ₱2600.0
+  Insurance: ₱100000.0
+SeaBank:
+  Interest: ₱3750.0
+  Insurance: ₱75000.0
+GoTyme:
+  Interest: ₱1350.0
+  Insurance: ₱0 (No insurance offered)
+```
+
+---
+
+### Explanation of the Visitor Design Pattern:
+1. **Element (`Bank`)**: Represents the banks (Cimb, SeaBank, GoTyme).
+2. **Visitor (`BankVisitor`)**: Encapsulates the logic for calculating interest and insurance.
+3. **Concrete Visitor (`InterestAndInsuranceVisitor`)**: Implements the logic for each bank.
+4. **Loose Coupling**: The banks and the visitor are loosely coupled. New banks or features can be added without modifying existing code.
+
+---
+
+### Benefits of This Design:
+- **Open/Closed Principle**: New banks or features can be added by creating new classes without modifying existing ones.
+- **Separation of Concerns**: The logic for calculating interest and insurance is separated from the bank classes.
+- **Flexibility**: The visitor can be extended to perform other operations (e.g., fees, rewards) without changing the bank classes.
+
+This implementation is clean, modular, and adheres to best practices in object-oriented design.
+
